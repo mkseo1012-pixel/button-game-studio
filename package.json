@@ -1,0 +1,16 @@
+{
+  "name": "button-game-studio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Build small browser games with your own AI accounts and ten specialist agents.",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node --watch server.mjs",
+    "deploy:pages": "wrangler pages deploy public --project-name button-game-studio"
+  },
+  "dependencies": {
+    "wrangler": "^4.35.0"
+  },
+  "engines": { "node": ">=20" }
+}

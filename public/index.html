@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101315"><meta name="description" content="내 AI 계정으로 열 명의 에이전트와 브라우저 게임을 만드는 스튜디오">
+  <title>Button Game Studio</title><link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#top" aria-label="Button Game Studio 홈"><span class="brand-mark">B<span>✳</span></span><span>button<span class="brand-light">game studio</span></span></a>
+      <div class="side-caption">WORKSPACE</div>
+      <button class="nav-item active" data-view="studio"><span>◈</span> 게임 만들기</button>
+      <button class="nav-item" data-view="library"><span>▦</span> 내 게임 <b id="game-count">0</b></button>
+      <div class="side-bottom"><div class="local-badge"><i></i> 로컬에서 안전하게 실행</div><div class="side-note">내가 연결한 AI 계정으로<br>게임을 직접 만들어요.</div></div>
+    </aside>
+
+    <main id="top">
+      <header class="topbar"><div class="breadcrumb">Studio <span>/</span> <strong id="crumb-title">새 게임</strong></div><div class="top-actions"><button class="icon-button" id="settings-open" title="AI 연결 설정" aria-label="AI 연결 설정">⚙</button><div class="avatar">YG</div></div></header>
+      <section class="view active" id="studio-view">
+        <div class="hero-row"><div><div class="eyebrow"><span class="sparkle">✳</span> YOUR IDEA, TEN AGENTS</div><h1>아이디어를 게임으로.</h1><p class="hero-copy">AI 에이전트 10명이 한 팀이 되어, 바로 플레이할 수 있는 게임을 만듭니다.</p></div><div class="hero-art" aria-hidden="true"><div class="orbit o1"></div><div class="orbit o2"></div><div class="orb">✦</div><span class="float f1">✳</span><span class="float f2">◈</span><span class="float f3">✦</span></div></div>
+        <div class="studio-grid">
+          <section class="panel prompt-panel"><div class="panel-heading"><div><span class="step-number">01</span><h2>게임 아이디어</h2></div><span class="soft-label">무엇이든 한 문장으로</span></div>
+            <label for="game-title">게임 이름 <span>선택</span></label><input id="game-title" class="text-input" maxlength="60" placeholder="예: 달빛 우체국">
+            <label for="game-prompt">어떤 게임을 만들까요?</label><textarea id="game-prompt" maxlength="3000" placeholder="예: 작은 여우가 밤하늘을 날며 별 조각을 모으고, 구름을 피하는 아기자기한 게임. 방향키나 터치로 움직이고, 별을 많이 모을수록 빨라져요." rows="6"></textarea><div class="textarea-foot"><span>구체적으로 적을수록 더 멋진 게임이 나와요</span><span id="char-count">0 / 3,000</span></div>
+            <div class="divider"></div><div class="panel-heading model-heading"><div><span class="step-number">02</span><h2>만들 AI 선택</h2></div><button class="text-button" id="connect-open">계정 연결 ↗</button></div>
+            <div class="provider-tabs" role="tablist" aria-label="AI 제공자"><button class="provider active" data-provider="codex"><span class="provider-dot codex-dot">✳</span><span>Codex</span><small>로그인</small></button><button class="provider" data-provider="openai"><span class="provider-dot openai-dot">◉</span><span>OpenAI</span><small>API</small></button><button class="provider" data-provider="gemini"><span class="provider-dot gemini-dot">✦</span><span>Gemini</span><small>API</small></button><button class="provider" data-provider="claude"><span class="provider-dot claude-dot">◌</span><span>Claude</span><small>API</small></button><button class="provider" data-provider="grok"><span class="provider-dot grok-dot">𝕏</span><span>Grok</span><small>API</small></button></div>
+            <div class="model-row"><div class="model-select-wrap"><label for="model-select">모델</label><select id="model-select"></select></div><div class="agent-chip"><span>✳</span><strong>10</strong> agents <small>병렬로 작업</small></div></div>
+            <div class="key-row" id="key-row"><label for="api-key">내 API 키</label><input id="api-key" type="password" class="text-input" autocomplete="off" spellcheck="false" placeholder="sk-••••••••••••••••" aria-describedby="key-help"><span id="key-help">키는 이 브라우저 탭에서만 사용되며 저장되지 않아요.</span></div>
+            <button class="create-button" id="create-button"><span>✳</span> 게임 만들기 <b>↗</b></button><div class="cost-note">각 게임 생성마다 선택한 제공자에 요청 11회가 전송됩니다.</div>
+          </section>
+          <section class="panel agents-panel"><div class="panel-heading"><div><span class="step-number">03</span><h2>에이전트 팀</h2></div><span class="live-tag"><i></i> READY</span></div><p class="panel-sub">10명의 전문 에이전트가 각자 맡은 부분을 설계합니다.</p><div class="agent-list" id="agent-list"></div><div class="agent-footer"><span class="agent-mini-avatars"><i>✳</i><i>◈</i><i>●</i><i>✦</i><i>+</i></span><span>에이전트들이 힘을 합쳐 하나의 게임으로 완성합니다.</span></div>
+            <div class="progress-box hidden" id="progress-box"><div class="progress-top"><strong id="progress-title">에이전트 출동 준비 중</strong><span id="progress-number">0 / 11</span></div><div class="progress-track"><i id="progress-bar"></i></div><div class="progress-text" id="progress-text">10개의 전문 팀을 깨우고 있어요.</div></div>
+          </section>
+        </div>
+        <section class="preview-panel panel hidden" id="result-panel"><div class="result-heading"><div><div class="eyebrow">GAME READY</div><h2 id="result-title">내 게임</h2></div><div class="result-actions"><button class="outline-button" id="download-button">↓ HTML 저장</button><button class="outline-button" id="library-button">＋ 게임 모음에 추가</button></div></div><div class="game-frame-wrap"><iframe id="game-frame" title="생성된 게임 미리보기" sandbox="allow-scripts"></iframe></div><div class="result-foot"><span id="result-meta"></span><button id="agent-report-button" class="text-button">에이전트 리포트 보기 →</button></div><div class="agent-report hidden" id="agent-report"></div></section>
+      </section>
+      <section class="view" id="library-view"><div class="library-head"><div><div class="eyebrow">YOUR ARCADE</div><h1>내 게임 모음</h1><p class="hero-copy">만든 게임을 한 페이지에 모아 공유하거나 배포하세요.</p></div><button class="create-button small-create" id="library-create">＋ 새 게임 만들기</button></div><div id="library-empty" class="empty-state"><div class="empty-icon">▦</div><h2>아직 만든 게임이 없어요</h2><p>첫 게임을 만들면 이곳에 모입니다.</p><button class="text-button" id="empty-create">첫 게임 만들기 →</button></div><div class="library-grid" id="library-grid"></div><div id="library-tools" class="library-tools hidden"><div><strong>게임 모음 내보내기</strong><span>모든 게임이 담긴 하나의 index.html을 저장합니다.</span></div><button class="outline-button" id="collection-download">↓ index.html 저장</button><div class="deploy-box"><div><strong>Cloudflare Pages에 배포</strong><span>내 Cloudflare 계정의 Pages 프로젝트로 게임 모음을 게시합니다.</span></div><div class="deploy-controls"><input id="cf-project" class="text-input" placeholder="cloudflare-pages-project"><button class="create-button small-create" id="deploy-button">배포하기 ↗</button></div><small>최초 1회: <code>npx wrangler login</code> 후 Pages 프로젝트를 만들어 주세요.</small></div></div></section>
+      <footer>게임과 키는 현재 기기에 보관됩니다. 외부 서버로 키를 전송하지 않습니다.<span>Made with ✳ and a little imagination</span></footer>
+    </main>
+  </div>
+  <dialog id="settings-dialog"><form method="dialog" class="dialog-card"><button class="dialog-close" value="close" aria-label="닫기">×</button><div class="eyebrow">ACCOUNT CONNECTION</div><h2>내 AI 계정 연결</h2><p>연결 정보는 이 기기 안에서만 사용합니다. API 키는 저장하지 않고 각 요청을 처리할 때만 사용합니다.</p><div class="connection-list" id="connection-list"></div><div class="security-note">🔒 API 키 입력 후 로컬 앱에서 해당 제공자로 직접 전송합니다. 이 프로젝트 서버는 127.0.0.1에서만 동작합니다.</div><button class="outline-button dialog-done" value="close">확인</button></form></dialog>
+  <dialog id="confirm-dialog"><form method="dialog" class="dialog-card"><button class="dialog-close" value="cancel" aria-label="닫기">×</button><div class="eyebrow">GAME LIBRARY</div><h2>게임 모음에 추가할까요?</h2><p id="confirm-copy">현재 게임을 이 기기의 게임 모음에 저장합니다.</p><button class="create-button" value="yes" id="confirm-yes">추가하기 →</button></form></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div><script src="/app.js" defer></script>
+</body></html>
